@@ -1,12 +1,21 @@
 <template>
   <div class="app">
-    <JobList :jobs="jobs" />
+    <header>
+      <div class="order">
+        <button @click="handleClick('title')">Order by title</button>
+        <button @click="handleClick('salary')">Order by salary</button>
+        <button @click="handleClick('location')">Order by location</button>
+      </div>
+    </header>
+
+    <JobList :jobs="jobs" :order="order" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs } from '@vue/runtime-core';
 import Job from './types/Job';
+import OrderTerm from './types/OrderTerm';
 import JobList from './components/JobsList.vue';
 
 export default defineComponent({
@@ -41,10 +50,33 @@ export default defineComponent({
       },
     ]);
 
-    return { jobs }; // we need always return it for use in template
+    const order = ref<OrderTerm>('title');
+
+    const handleClick = (term: OrderTerm) => {
+      order.value = term;
+    };
+
+    return { jobs, handleClick, order }; // we need always return it for use in template
   },
   methods: {},
 });
 </script>
 
-<style></style>
+<style>
+header {
+  text-align: center;
+}
+header .order {
+  margin-top: 20px;
+}
+button {
+  margin: 0 10px;
+  color: #1195c9;
+  border: 3px solid #1195c9;
+  background: #d5f0ff;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+</style>
