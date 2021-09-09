@@ -1,19 +1,31 @@
-<script setup lang="ts">
-// This starter template is using Vue 3 <script setup> SFCs
-// Check out https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup
+<script lang="ts">
+import { defineComponent } from '@vue/runtime-core';
+
+// let age: number | string = 0; // <- type union
+
+export default defineComponent({
+  name: 'App',
+  components: {},
+  data() {
+    return {
+      name: 'Link',
+      age: 17 as number | string, // <- type assertion
+    };
+  },
+  methods: {
+    changePerson(name: string, age: number | string) {
+      this.name = name;
+      this.age = age;
+      return name, age; // side effect with comma operator
+    },
+  },
+});
 </script>
 
 <template>
-  <h1>Hello</h1>
+  <h1>Hello, {{ name }}</h1>
+  <h2>Age: {{ age }}</h2>
+  <button @click="changePerson('Zelda', 16)">Change name</button>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+<style></style>
