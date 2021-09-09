@@ -12,7 +12,7 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs } from '@vue/runtime-core';
-import Job from './types/Job';
+import Job from '@/types/Job';
 
 export default defineComponent({
   name: 'App',
@@ -29,7 +29,7 @@ export default defineComponent({
     //   ...toRefs(state),
     // };
 
-    // Ref style
+    // Ref's style
     // const name = ref('Link');
     // const age = ref<number | string>(17);
 
