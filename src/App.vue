@@ -1,10 +1,4 @@
 <template>
-  <!-- 
-  <h1>Hello, {{ name.value }}</h1>
-  <h2>Age: {{ age.value }}</h2>
-  <button @click="changePerson('Zelda', 16)">Change name</button>
-  -->
-
   <div class="app">
     <p>{{ jobs[0].location }}</p>
   </div>
@@ -12,29 +6,12 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref, toRefs } from '@vue/runtime-core';
-import Job from '@/types/Job';
+import Job from './types/Job';
 
 export default defineComponent({
   name: 'App',
   components: {},
   setup() {
-    // composition API
-
-    // const state = reactive({
-    //   name: 'Link',
-    //   age: 17 as number | string,
-    // });
-
-    // return {
-    //   ...toRefs(state),
-    // };
-
-    // Ref's style
-    // const name = ref('Link');
-    // const age = ref<number | string>(17);
-
-    // return { name, age };
-
     const jobs = ref<Job[]>([
       {
         title: 'farm worker',
@@ -63,15 +40,9 @@ export default defineComponent({
       },
     ]);
 
-    return { jobs };
+    return { jobs }; // we need always return it for use in template
   },
-  methods: {
-    //   changePerson(name: string, age: number | string) {
-    //     this.name = name;
-    //     this.age = age;
-    //     return { name, age };
-    //   },
-  },
+  methods: {},
 });
 </script>
 
