@@ -1,10 +1,11 @@
 <template>
   <div class="job-list">
     <p>Ordered by {{ order }}</p>
-    <ul>
+    <transition-group name="list" tag="ul">
       <li v-for="job in orderedJobs" :key="job.id">
         <h2>{{ job.title }} in {{ job.location }}</h2>
         <div class="salary">
+          <img src=".././assets/rupee.svg" alt="rupees" />
           <p>{{ job.salary }} rupees</p>
         </div>
         <div class="description">
@@ -16,7 +17,7 @@
           </p>
         </div>
       </li>
-    </ul>
+    </transition-group>
   </div>
 </template>
 
@@ -28,8 +29,8 @@ import OrderTerm from '../types/OrderTerm';
 export default defineComponent({
   props: {
     jobs: {
-      type: Array as PropType<Job[]>, // it must be js type and then TS assertion
       required: true,
+      type: Array as PropType<Job[]>, // it must be js type first and then TS assertion
     },
     order: {
       required: true,
@@ -38,8 +39,13 @@ export default defineComponent({
   },
   setup(props) {
     const orderedJobs = computed(() => {
-      // todo special function to sort biggest salaries fist
+      //  special function to sort by biggest salaries fist
+      if (props.order === 'salary')
+        return [...props.jobs].sort((a: Job, b: Job) => {
+          return a[props.order] > b[props.order] ? -1 : 1;
+        });
 
+      // normal sorting by name
       return [...props.jobs].sort((a: Job, b: Job) => {
         return a[props.order] > b[props.order] ? 1 : -1;
       });
@@ -79,5 +85,9 @@ export default defineComponent({
   color: #17bf66;
   font-weight: bold;
   margin: 10px 4px;
+}
+
+.list-move {
+  transition: all 1s;
 }
 </style>
